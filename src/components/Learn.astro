@@ -1,0 +1,95 @@
+---
+const lessons = [
+  {
+    tag: 'Basics',
+    title: 'What actually moves price',
+    body: 'Liquidity, positioning, and narrative. The three forces behind every candle.'
+  },
+  {
+    tag: 'Psychology',
+    title: 'Why you exit too early',
+    body: 'Loss aversion, anchoring, and the cost of watching every tick.'
+  },
+  {
+    tag: 'Risk',
+    title: 'The 1% rule, explained',
+    body: 'Why sizing small keeps you in the game long enough to actually win.'
+  }
+]
+---
+
+<section id="learn" class="soft">
+  <div class="wrap">
+    <h2 class="section-title">Learn</h2>
+    <p class="section-sub">
+      Plain-language breakdowns. No jargon walls, no shilling.
+    </p>
+
+    <div class="grid">
+      {lessons.map((l) => (
+        <article class="card">
+          <span class="tag">{l.tag}</span>
+          <h3>{l.title}</h3>
+          <p>{l.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="soon">Full guides publishing soon. Start with the three above.</p>
+  </div>
+</section>
+
+<style>
+  .soft {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 30px 26px;
+    border-radius: var(--radius);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .tag {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: var(--text-mute);
+    line-height: 1.6;
+  }
+
+  .soon {
+    margin-top: 36px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+</style>

@@ -1,0 +1,165 @@
+---
+const base = import.meta.env.BASE_URL
+
+const links = [
+  { href: '#markets', label: 'Markets' },
+  { href: '#signals', label: 'Signals' },
+  { href: '#tools', label: 'Tools' },
+  { href: '#learn', label: 'Learn' },
+  { href: '#community', label: 'Community' }
+]
+---
+
+<header>
+  <div class="wrap nav">
+    <a href={`${base}`} class="logo">Cryptic Market<span>.</span></a>
+
+    <button
+      class="burger"
+      id="navToggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="navMenu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navMenu">
+      {links.map((l) => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+    z-index: 100;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .logo span {
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    color: var(--text-soft);
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .burger {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .burger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    transition: transform 0.3s, opacity 0.25s;
+    border-radius: 2px;
+  }
+
+  .burger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .burger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 820px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 12px 24px 20px;
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav-links li:last-child a {
+      border-bottom: none;
+    }
+
+    .burger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('navToggle')
+  const menu = document.getElementById('navMenu')
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open')
+      toggle.setAttribute('aria-expanded', String(open))
+    })
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open')
+        toggle.setAttribute('aria-expanded', 'false')
+      })
+    })
+  }
+</script>

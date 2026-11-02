@@ -1,0 +1,85 @@
+---
+const base = import.meta.env.BASE_URL
+const year = new Date().getFullYear()
+
+const links = [
+  { href: '#markets', label: 'Markets' },
+  { href: '#signals', label: 'Signals' },
+  { href: '#tools', label: 'Tools' },
+  { href: '#learn', label: 'Learn' }
+]
+---
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <a href={base} class="logo">Cryptic Market<span>.</span></a>
+      <ul class="footer-links">
+        <li>
+          <a href="https://web.facebook.com/lemuelowusuansah" target="_blank" rel="noopener noreferrer">Facebook</a>
+        </li>
+        <li>
+          <a href="https://github.com/LemuelOwusuAnsah" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </li>
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="legal">
+      &copy; {year} Cryptic Market by Lemy. All rights reserved. Not financial advice.
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    padding: 50px 0 40px;
+    border-top: 1px solid var(--border-soft);
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .logo {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .logo span {
+    color: var(--gold);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
+
+  .footer-links a {
+    color: var(--text-mute);
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--gold);
+  }
+
+  .legal {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 24px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+</style>

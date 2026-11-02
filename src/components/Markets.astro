@@ -1,0 +1,374 @@
+---
+---
+
+<section id="markets">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h2 class="section-title">Markets</h2>
+        <p class="section-sub">
+          Live prices across the pairs that matter. Auto-refresh every 60 seconds.
+        </p>
+      </div>
+      <button class="refresh" id="refreshBtn" aria-label="Refresh prices">
+        <span class="refresh-icon">↻</span>
+        <span class="refresh-label">Refresh</span>
+      </button>
+    </div>
+
+    <div class="grid" id="marketGrid">
+      {[
+        { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin' },
+        { id: 'ethereum', symbol: 'ETH', name: 'Ethereum' },
+        { id: 'solana', symbol: 'SOL', name: 'Solana' },
+        { id: 'binancecoin', symbol: 'BNB', name: 'BNB' }
+      ].map((coin) => (
+        <article class="card skeleton" data-coin={coin.id}>
+          <span class="tier">{coin.name}</span>
+          <h3>{coin.symbol} / USD</h3>
+          <div class="price-slot">
+            <span class="price">—</span>
+            <span class="change">—</span>
+          </div>
+          <dl class="meta">
+            <div>
+              <dt>24h vol</dt>
+              <dd class="volume">—</dd>
+            </div>
+            <div>
+              <dt>Mkt cap</dt>
+              <dd class="mcap">—</dd>
+            </div>
+          </dl>
+          <div class="bar">
+            <div class="bar-fill"></div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="status" id="marketStatus" role="status" aria-live="polite"></p>
+    <p class="credit">
+      Data from
+      <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer">CoinGecko</a>.
+      Refresh every 60s. Not financial advice.
+    </p>
+  </div>
+</section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .refresh {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    padding: 10px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .refresh:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .refresh.spinning .refresh-icon {
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 30px 26px;
+    border-radius: var(--radius);
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .card.skeleton .price,
+  .card.skeleton .change,
+  .card.skeleton .volume,
+  .card.skeleton .mcap {
+    background: linear-gradient(
+      90deg,
+      #1a1a1a 0%,
+      #222 50%,
+      #1a1a1a 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+    color: transparent;
+    border-radius: 2px;
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  .tier {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  .price-slot {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .price {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    padding: 2px 6px;
+    min-width: 100px;
+  }
+
+  .change {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 6px;
+  }
+
+  .change.up {
+    color: var(--green);
+  }
+
+  .change.down {
+    color: var(--red);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 12px;
+  }
+
+  .meta dt {
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .meta dd {
+    color: var(--text-soft);
+    font-weight: 600;
+  }
+
+  .bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--gold);
+    transition: width 0.6s ease;
+  }
+
+  .card.up .bar-fill {
+    background: var(--green);
+  }
+
+  .card.down .bar-fill {
+    background: var(--red);
+  }
+
+  .status {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--text-dim);
+    min-height: 20px;
+  }
+
+  .status.error {
+    color: var(--red);
+  }
+
+  .credit {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .credit a {
+    color: var(--text-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+  }
+
+  .credit a:hover {
+    color: var(--gold);
+    text-decoration-color: var(--gold);
+  }
+</style>
+
+<script>
+  const API = 'https://api.coingecko.com/api/v3/simple/price'
+  const REFRESH_MS = 60_000
+  const IDS = ['bitcoin', 'ethereum', 'solana', 'binancecoin']
+
+  const grid = document.getElementById('marketGrid')
+  const status = document.getElementById('marketStatus')
+  const refreshBtn = document.getElementById('refreshBtn')
+
+  let timer: number | undefined
+
+  function fmtMoney(n: number): string {
+    if (n >= 1_000_000_000) return '$' + (n / 1_000_000_000).toFixed(2) + 'B'
+    if (n >= 1_000_000) return '$' + (n / 1_000_000).toFixed(2) + 'M'
+    if (n >= 1_000) return '$' + (n / 1_000).toFixed(1) + 'K'
+    return '$' + n.toFixed(2)
+  }
+
+  function fmtPrice(n: number): string {
+    if (n >= 1000) {
+      return '$' + n.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })
+    }
+    return '$' + n.toFixed(2)
+  }
+
+  async function load(manual = false) {
+    if (manual) refreshBtn?.classList.add('spinning')
+
+    grid?.querySelectorAll('.card').forEach((c) => c.classList.add('skeleton'))
+
+    try {
+      const url =
+        `${API}?ids=${IDS.join(',')}&vs_currencies=usd` +
+        `&include_24hr_change=true&include_24hr_vol=true&include_market_cap=true`
+
+      const res = await fetch(url)
+      if (!res.ok) throw new Error('HTTP ' + res.status)
+      const data = await res.json()
+
+      IDS.forEach((id) => {
+        const coin = data[id]
+        if (!coin) return
+
+        const card = document.querySelector(`[data-coin="${id}"]`)
+        if (!card) return
+
+        card.classList.remove('skeleton')
+
+        const price = coin.usd
+        const change = coin.usd_24h_change ?? 0
+        const vol = coin.usd_24h_vol ?? 0
+        const mcap = coin.usd_market_cap ?? 0
+
+        const priceEl = card.querySelector('.price') as HTMLElement | null
+        const changeEl = card.querySelector('.change') as HTMLElement | null
+        const volEl = card.querySelector('.volume') as HTMLElement | null
+        const mcapEl = card.querySelector('.mcap') as HTMLElement | null
+        const barEl = card.querySelector('.bar-fill') as HTMLElement | null
+
+        if (priceEl) priceEl.textContent = fmtPrice(price)
+        if (changeEl) {
+          changeEl.textContent =
+            (change >= 0 ? '+' : '') + change.toFixed(2) + '%'
+          changeEl.className = 'change ' + (change >= 0 ? 'up' : 'down')
+        }
+        if (volEl) volEl.textContent = fmtMoney(vol)
+        if (mcapEl) mcapEl.textContent = fmtMoney(mcap)
+
+        card.classList.remove('up', 'down')
+        card.classList.add(change >= 0 ? 'up' : 'down')
+
+        if (barEl) {
+          const pct = Math.min(100, Math.max(0, Math.abs(change) * 10))
+          barEl.style.width = pct + '%'
+        }
+      })
+
+      if (status) {
+        status.classList.remove('error')
+        status.textContent =
+          'Updated ' +
+          new Date().toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+      }
+    } catch (err) {
+      if (status) {
+        status.classList.add('error')
+        status.textContent =
+          'Could not load prices. CoinGecko may be rate-limiting — try again in a minute.'
+      }
+      grid?.querySelectorAll('.card').forEach((c) => c.classList.remove('skeleton'))
+    } finally {
+      refreshBtn?.classList.remove('spinning')
+    }
+  }
+
+  function start() {
+    load()
+    timer = window.setInterval(load, REFRESH_MS)
+  }
+
+  function stop() {
+    if (timer) window.clearInterval(timer)
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop()
+    else start()
+  })
+
+  refreshBtn?.addEventListener('click', () => load(true))
+
+  start()
+</script>

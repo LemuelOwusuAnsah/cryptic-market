@@ -1,0 +1,89 @@
+---
+const tools = [
+  {
+    tag: 'Size',
+    title: 'Position calculator',
+    body: 'Enter account size, risk percentage, and stop distance. Get your share count instantly.'
+  },
+  {
+    tag: 'Alerts',
+    title: 'Price alerts',
+    body: 'Set a level. Get pinged when the market crosses it — not before, not after.'
+  },
+  {
+    tag: 'Watchlist',
+    title: 'Personal watchlist',
+    body: 'Track the pairs you actually care about instead of the whole board.'
+  }
+]
+---
+
+<section id="tools">
+  <div class="wrap">
+    <h2 class="section-title">Tools</h2>
+    <p class="section-sub">
+      Position sizing, alerts, watchlists — built for the way you actually trade.
+    </p>
+
+    <div class="grid">
+      {tools.map((t) => (
+        <article class="card">
+          <span class="tag">{t.tag}</span>
+          <h3>{t.title}</h3>
+          <p>{t.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="soon">Tools are in active build. Live versions land soon.</p>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 30px 26px;
+    border-radius: var(--radius);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .tag {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: var(--text-mute);
+    line-height: 1.6;
+  }
+
+  .soon {
+    margin-top: 36px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+</style>

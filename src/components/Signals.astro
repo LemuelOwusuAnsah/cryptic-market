@@ -1,0 +1,95 @@
+---
+const items = [
+  {
+    tag: 'Structure',
+    title: 'Higher lows, higher highs',
+    body: 'A clean uptrend reading is not a buy signal. It is a note that the trend is intact until it breaks.'
+  },
+  {
+    tag: 'Volume',
+    title: 'The move that matters',
+    body: 'Price moves on volume. If the volume is not there, the move is not real yet.'
+  },
+  {
+    tag: 'Risk',
+    title: 'Position size first',
+    body: 'Decide how much you can lose before you decide how much you can win.'
+  }
+]
+---
+
+<section id="signals" class="soft">
+  <div class="wrap">
+    <h2 class="section-title">Signals</h2>
+    <p class="section-sub">
+      Structure over hype. Setups with context, not calls with ego.
+    </p>
+
+    <div class="grid">
+      {items.map((i) => (
+        <article class="card">
+          <span class="tag">{i.tag}</span>
+          <h3>{i.title}</h3>
+          <p>{i.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <p class="soon">More signals shipping weekly. Follow along for the full board.</p>
+  </div>
+</section>
+
+<style>
+  .soft {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 30px 26px;
+    border-radius: var(--radius);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .tag {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: var(--text-mute);
+    line-height: 1.6;
+  }
+
+  .soon {
+    margin-top: 36px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+</style>

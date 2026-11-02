@@ -1,0 +1,65 @@
+---
+const base = import.meta.env.BASE_URL
+---
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Cryptic<span>.</span></h1>
+    <p>
+      Cryptic Market by Lemy — live crypto prices, clear signals,
+      and the tools to move with conviction instead of noise.
+    </p>
+    <a href="#markets" class="cta">See the market</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    background:
+      radial-gradient(circle at 20% 30%, var(--gold-soft), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(201, 162, 39, 0.06), transparent 50%),
+      var(--bg);
+  }
+
+  .hero h1 {
+    font-size: clamp(64px, 14vw, 160px);
+    font-weight: 700;
+    letter-spacing: -4px;
+    line-height: 1;
+    margin-bottom: 22px;
+  }
+
+  .hero h1 span {
+    color: var(--gold);
+  }
+
+  .hero p {
+    font-size: clamp(15px, 1.7vw, 19px);
+    color: var(--text-soft);
+    max-width: 580px;
+    margin: 0 auto 40px;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 15px 38px;
+    background: var(--gold);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px var(--gold-glow);
+  }
+</style>
