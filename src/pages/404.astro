@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Base title="404 — Cryptic Market" description="That page is not here.">
+  <Nav />
+  <main>
+    <section class="error-page">
+      <div class="wrap">
+        <h1>404<span>.</span></h1>
+        <p>That page is not here. The market moves, so should you.</p>
+        <a href="/cryptic-market/" class="cta">Back to the market</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+  }
+
+  .error-page h1 {
+    font-size: clamp(80px, 18vw, 200px);
+    font-weight: 700;
+    letter-spacing: -6px;
+    line-height: 1;
+    margin-bottom: 22px;
+  }
+
+  .error-page h1 span {
+    color: var(--gold);
+  }
+
+  .error-page p {
+    font-size: clamp(15px, 1.7vw, 18px);
+    color: var(--text-soft);
+    max-width: 480px;
+    margin: 0 auto 40px;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 15px 38px;
+    background: var(--gold);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px var(--gold-glow);
+  }
+</style>
