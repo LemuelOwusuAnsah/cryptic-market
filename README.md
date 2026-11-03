@@ -1,43 +1,61 @@
-# Astro Starter Kit: Minimal
+# Cryptic Market
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Live crypto prices, clear signals, and tools for the trader who wants the work to speak louder than the noise. Built by Lemy.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Live: https://lemuelowusuansah.github.io/cryptic-market/
 
-## 🚀 Project Structure
+## Stack
 
-Inside of your Astro project, you'll see the following folders and files:
+- Astro 5, static output
+- Vanilla TypeScript for the price fetcher
+- CoinGecko public API, no key required
+- Handcrafted CSS, dark theme with gold accents
+- GitHub Actions auto-deploy to Pages
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## What it does
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- Live BTC, ETH, SOL, BNB prices
+- 24h change, volume, market cap
+- Auto-refresh every 60s, pauses when the tab is hidden
+- Manual refresh button
+- Loading skeleton and error fallback
+- Mobile hamburger nav
+- Respects prefers-reduced-motion
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## What it does not do
 
-Any static assets, like images, can be placed in the `public/` directory.
+- Not financial advice.
+- Signals, Tools, and Learn sections are placeholder content. Live tools are in build.
+- No backend yet. Everything runs client-side.
 
-## 🧞 Commands
+## Run locally
 
-All commands are run from the root of the project, from a terminal:
+nvm use
+npm install
+npm run dev
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Opens at http://localhost:4321/cryptic-market/
 
-## 👀 Want to learn more?
+## Build
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+npm run build
+npm run preview
+
+Output goes to dist/
+
+## Deploy
+
+Push to main. The workflow in .github/workflows/deploy.yml builds and publishes to GitHub Pages automatically.
+
+First-time setup: enable Pages in the repo settings, source set to GitHub Actions.
+
+## Layout
+
+src/layouts/Base.astro - page shell, meta, OG, JSON-LD
+src/pages/index.astro - composes all sections
+src/components/ - Nav, Hero, Markets, Signals, Tools, Learn, Community, Footer
+src/styles/global.css - tokens, reset, reduced-motion
+
+## License
+
+MIT. See LICENSE.
