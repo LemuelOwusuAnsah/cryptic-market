@@ -1,11 +1,13 @@
 ---
+import LiveBadge from './LiveBadge.astro'
+import { formatMoney, formatPrice, formatChange } from '../lib/utils.js'
 ---
 
 <section id="markets">
   <div class="wrap">
     <div class="head">
       <div>
-        <h2 class="section-title">Markets</h2>
+        <div class="title-row"><h2 class="section-title">Markets</h2><LiveBadge /></div>
         <p class="section-sub">
           Live prices across the pairs that matter. Auto-refresh every 60 seconds.
         </p>
@@ -57,6 +59,13 @@
 </section>
 
 <style>
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
   .head {
     display: flex;
     justify-content: space-between;
@@ -264,23 +273,6 @@
 
   let timer: number | undefined
 
-  function fmtMoney(n: number): string {
-    if (n >= 1_000_000_000) return '$' + (n / 1_000_000_000).toFixed(2) + 'B'
-    if (n >= 1_000_000) return '$' + (n / 1_000_000).toFixed(2) + 'M'
-    if (n >= 1_000) return '$' + (n / 1_000).toFixed(1) + 'K'
-    return '$' + n.toFixed(2)
-  }
-
-  function fmtPrice(n: number): string {
-    if (n >= 1000) {
-      return '$' + n.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      })
-    }
-    return '$' + n.toFixed(2)
-  }
-
   async function load(manual = false) {
     if (manual) refreshBtn?.classList.add('spinning')
 
@@ -315,14 +307,14 @@
         const mcapEl = card.querySelector('.mcap') as HTMLElement | null
         const barEl = card.querySelector('.bar-fill') as HTMLElement | null
 
-        if (priceEl) priceEl.textContent = fmtPrice(price)
+        if (priceEl) priceEl.textContent = formatPrice(price)
         if (changeEl) {
-          changeEl.textContent =
-            (change >= 0 ? '+' : '') + change.toFixed(2) + '%'
-          changeEl.className = 'change ' + (change >= 0 ? 'up' : 'down')
+          const fc = formatChange(change)
+          changeEl.textContent = fc.text
+          changeEl.className = 'change ' + fc.dir
         }
-        if (volEl) volEl.textContent = fmtMoney(vol)
-        if (mcapEl) mcapEl.textContent = fmtMoney(mcap)
+        if (volEl) volEl.textContent = formatMoney(vol)
+        if (mcapEl) mcapEl.textContent = formatMoney(mcap)
 
         card.classList.remove('up', 'down')
         card.classList.add(change >= 0 ? 'up' : 'down')
