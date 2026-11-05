@@ -169,6 +169,27 @@ import { formatMoney, formatPrice, formatChange } from '../lib/utils.js'
     margin-bottom: 16px;
   }
 
+  .price,
+  .change,
+  .volume,
+  .mcap {
+    transition: opacity 0.4s ease;
+  }
+
+  .card.skeleton .price,
+  .card.skeleton .change,
+  .card.skeleton .volume,
+  .card.skeleton .mcap {
+    opacity: 0.4;
+  }
+
+  .card:not(.skeleton) .price,
+  .card:not(.skeleton) .change,
+  .card:not(.skeleton) .volume,
+  .card:not(.skeleton) .mcap {
+    opacity: 1;
+  }
+
   .price {
     font-size: 24px;
     font-weight: 700;
