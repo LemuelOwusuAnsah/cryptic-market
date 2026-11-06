@@ -1,0 +1,18 @@
+* text=auto eol=lf
+
+*.astro text
+*.js text
+*.ts text
+*.css text
+*.html text
+*.json text
+*.md text
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+package-lock.json -diff linguist-generated
